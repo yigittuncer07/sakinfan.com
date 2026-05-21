@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Boards</h2>
+    <table border="1" width="100%" cellpadding="5">
+        <thead>
+            <tr>
+                <th align="left">Board</th>
+                <th>Stats</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for board in boards %}
+            <tr>
+                <td>
+                    <strong><a href="#">{{ board.name }}</a></strong><br>
+                    <small>{{ board.description }}</small>
+                </td>
+                <td align="center">0 Threads<br>0 Posts</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No boards available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

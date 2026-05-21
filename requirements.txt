@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+sqlalchemy
+asyncpg
+pydantic-settings
+python-multipart
+asgi-csrf
+bcrypt
