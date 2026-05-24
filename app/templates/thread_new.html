@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}New Thread in {{ board.name }} - sakinfan.com{% endblock %}
+
+{% block content %}
+    <h2>Create New Thread in {{ board.name }}</h2>
+    <form method="POST" action="/board/{{ board.id }}/new">
+        <input type="hidden" name="csrftoken" value="{{ request.scope['csrftoken']() }}">
+        <p>
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" style="width: 100%;" required>
+        </p>
+        <p>
+            <label for="body">Post Body:</label><br>
+            <textarea id="body" name="body" rows="10" style="width: 100%;" required></textarea>
+        </p>
+        <p>
+            <button type="submit">Post Thread</button>
+        </p>
+    </form>
+{% endblock %}

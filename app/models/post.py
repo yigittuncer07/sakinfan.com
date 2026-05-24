@@ -15,3 +15,5 @@ class Post(Base):
     updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), onupdate=func.now())
 
     thread = relationship("Thread", back_populates="posts")
+
+    author = relationship("User")

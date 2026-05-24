@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ thread.title }} - sakinfan.com{% endblock %}
+
+{% block content %}
+    <p><a href="/board/{{ thread.board_id }}">&laquo; Back to Board</a></p>
+    
+    <h2>{{ thread.title }}</h2>
+
+    <table border="1" width="100%" cellpadding="10" style="margin-bottom: 20px;">
+        {% for post in posts %}
+        <tr>
+            <td width="20%" valign="top" style="background-color: #f9f9f9;">
+                <strong>{{ post.author.username }}</strong><br><br>
+                <small>{{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+            </td>
+            <td valign="top">
+                <!-- Using safe filter because content is already sanitized via bleach -->
+                {{ post.html_body | safe }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% if user %}
+        <h3>Add Reply</h3>
+        <form method="POST" action="/thread/{{ thread.id }}/reply">
+            <input type="hidden" name="csrftoken" value="{{ request.scope['csrftoken']() }}">
+            <p>
+                <textarea id="body" name="body" rows="6" style="width: 100%;" required></textarea>
+            </p>
+            <p>
+                <button type="submit">Post Reply</button>
+            </p>
+        </form>
+    {% else %}
+        <p><em>You must <a href="/login">login</a> to reply.</em></p>
+    {% endif %}
+{% endblock %}

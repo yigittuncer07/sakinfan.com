@@ -17,3 +17,5 @@ class Thread(Base):
 
     board = relationship("Board", back_populates="threads")
     posts = relationship("Post", back_populates="thread")
+
+    author = relationship("User")

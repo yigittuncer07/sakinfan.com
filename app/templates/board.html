@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ board.name }} - sakinfan.com{% endblock %}
+
+{% block content %}
+    <h2>{{ board.name }}</h2>
+    <p>{{ board.description }}</p>
+
+    {% if user %}
+        <p><a href="/board/{{ board.id }}/new">[ Create New Thread ]</a></p>
+    {% endif %}
+
+    <table border="1" width="100%" cellpadding="5">
+        <thead>
+            <tr>
+                <th align="left">Thread</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for thread in threads %}
+            <tr>
+                <td><strong><a href="/thread/{{ thread.id }}">{{ thread.title }}</a></strong></td>
+                <td align="center">{{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No threads yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
