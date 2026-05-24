@@ -11,7 +11,7 @@ async def get_threads_for_board(
     offset = (page - 1) * per_page
 
     count_result = await db.execute(
-        select(func.count()).where(Thread.board_id == board_id)
+        select(func.count(Thread.id)).where(Thread.board_id == board_id)
     )
     total_threads = count_result.scalar() or 0
 

@@ -48,7 +48,7 @@ async def get_posts_for_thread(
     offset = (page - 1) * per_page
 
     count_result = await db.execute(
-        select(func.count()).where(Post.thread_id == thread_id)
+        select(func.count(Post.id)).where(Post.thread_id == thread_id)
     )
     total_posts = count_result.scalar() or 0
 

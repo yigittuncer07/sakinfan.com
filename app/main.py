@@ -91,22 +91,24 @@ async def index(
         context={"boards": boards_data, "user": user},
     )
 
-# --- Exception Handlers ---
-
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc: HTTPException):
+    async with AsyncSessionLocal() as db:
+        user = await get_current_user(request, db)
     return templates.TemplateResponse(
-        request=request, name="error/404.html", context={"message": exc.detail}, status_code=404
+        request=request, name="error/404.html", context={"message": exc.detail, "user": user}, status_code=404
     )
 
 @app.exception_handler(403)
 async def forbidden_handler(request: Request, exc: HTTPException):
+    async with AsyncSessionLocal() as db:
+        user = await get_current_user(request, db)
     return templates.TemplateResponse(
-        request=request, name="error/403.html", context={"message": exc.detail}, status_code=403
+        request=request, name="error/403.html", context={"message": exc.detail, "user": user}, status_code=403
     )
 
 @app.exception_handler(500)
 async def server_error_handler(request: Request, exc: Exception):
     return templates.TemplateResponse(
-        request=request, name="error/500.html", context={}, status_code=500
+        request=request, name="error/500.html", context={"user": None}, status_code=500
     )
