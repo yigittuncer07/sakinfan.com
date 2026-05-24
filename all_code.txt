@@ -9,6 +9,11 @@ services:
       POSTGRES_DB: forum
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d forum"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   web:
     build: .
@@ -24,6 +29,9 @@ services:
       - postgre
     volumes:
       - .:/app # Mounts local code for easy updates without rebuilding
+    depends_on:
+      postgre:
+        condition: service_healthy
 
   nginx:
     image: nginx:alpine
@@ -268,24 +276,26 @@ async def index(
         context={"boards": boards_data, "user": user},
     )
 
-# --- Exception Handlers ---
-
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc: HTTPException):
+    async with AsyncSessionLocal() as db:
+        user = await get_current_user(request, db)
     return templates.TemplateResponse(
-        request=request, name="error/404.html", context={"message": exc.detail}, status_code=404
+        request=request, name="error/404.html", context={"message": exc.detail, "user": user}, status_code=404
     )
 
 @app.exception_handler(403)
 async def forbidden_handler(request: Request, exc: HTTPException):
+    async with AsyncSessionLocal() as db:
+        user = await get_current_user(request, db)
     return templates.TemplateResponse(
-        request=request, name="error/403.html", context={"message": exc.detail}, status_code=403
+        request=request, name="error/403.html", context={"message": exc.detail, "user": user}, status_code=403
     )
 
 @app.exception_handler(500)
 async def server_error_handler(request: Request, exc: Exception):
     return templates.TemplateResponse(
-        request=request, name="error/500.html", context={}, status_code=500
+        request=request, name="error/500.html", context={"user": None}, status_code=500
     )-e 
 
 === /home/jeff/projects/sakinfan.com/app/services/boards.py ===
@@ -311,7 +321,7 @@ async def get_threads_for_board(
     offset = (page - 1) * per_page
 
     count_result = await db.execute(
-        select(func.count()).where(Thread.board_id == board_id)
+        select(func.count(Thread.id)).where(Thread.board_id == board_id)
     )
     total_threads = count_result.scalar() or 0
 
@@ -459,7 +469,7 @@ async def get_posts_for_thread(
     offset = (page - 1) * per_page
 
     count_result = await db.execute(
-        select(func.count()).where(Post.thread_id == thread_id)
+        select(func.count(Post.id)).where(Post.thread_id == thread_id)
     )
     total_posts = count_result.scalar() or 0
 
@@ -712,7 +722,13 @@ block content %}
 {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/error/500.html ===
--e 
+{% extends "base.html" %}
+{% block title %}500 Server Error - sakinfan.com{% endblock %}
+{% block content %}
+    <h2 class="error">500 - Internal Server Error</h2>
+    <p>Something went wrong on our end. Please try again later.</p>
+    <p><a href="/">&laquo; Return to Index</a></p>
+{% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/error/404.html ===
 {% extends "base.html" %}

@@ -9,3 +9,5 @@ asgi-csrf
 bcrypt
 markdown
 bleach
+httpx
+python-dotenv
