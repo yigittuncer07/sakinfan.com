@@ -1,28 +1,29 @@
-{% extends "base.html" %}
-
-{% block title %}Register - sakinfan.com{% endblock %}
-
+{% extends "base.html" %} {% block title %}Register - sakinfan.com{% endblock %}
 {% block content %}
-    <h2>Register</h2>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <form method="POST" action="/register">
-        <input type="hidden" name="csrftoken" value="{{ request.scope['csrftoken']() }}">
-        <p>
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" required>
-        </p>
-        <p>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required>
-        </p>
-        <p>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required>
-        </p>
-        <p>
-            <button type="submit">Register</button>
-        </p>
-    </form>
+<h2>Register</h2>
+{% if error %}
+<p style="color: red">{{ error }}</p>
+{% endif %}
+<form method="POST" action="/register">
+  <input
+    type="hidden"
+    name="csrftoken"
+    value="{{ request.scope['csrftoken']() }}"
+  />
+  <p>
+    <label for="username">Username:</label><br />
+    <input type="text" id="username" name="username" required />
+  </p>
+  <p>
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" required />
+  </p>
+  <p>
+    <label for="password">Password:</label><br />
+    <input type="password" id="password" name="password" required />
+  </p>
+  <p>
+    <button type="submit">Register</button>
+  </p>
+</form>
 {% endblock %}

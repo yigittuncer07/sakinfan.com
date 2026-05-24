@@ -1,35 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
     <title>{% block title %}sakinfan.com{% endblock %}</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>sakinfan.com</h1>
-        <nav>
-            <a href="/">Home</a> | 
-            {% if user %}
-                Logged in as <strong>{{ user.username }}</strong> |
-                <form action="/logout" method="POST" style="display:inline;">
-                    <input type="hidden" name="csrftoken" value="{{ request.scope['csrftoken']() }}">
-                    <button type="submit" style="background:none; border:none; padding:0; color:blue; text-decoration:underline; cursor:pointer;">Logout</button>
-                </form>
-            {% else %}
-                <a href="/login">Login</a> | <a href="/register">Register</a>
-            {% endif %}
-        </nav>
-        <hr>
+      <h1>sakinfan.com</h1>
+      <nav>
+        <a href="/">Home</a> | {% if user %} Logged in as
+        <strong>{{ user.username }}</strong> |
+        <form action="/logout" method="POST" style="display: inline">
+          <input
+            type="hidden"
+            name="csrftoken"
+            value="{{ request.scope['csrftoken']() }}"
+          />
+          <button
+            type="submit"
+            style="
+              background: none;
+              border: none;
+              padding: 0;
+              color: blue;
+              text-decoration: underline;
+              cursor: pointer;
+            "
+          >
+            Logout
+          </button>
+        </form>
+        {% else %}
+        <a href="/login">Login</a> | <a href="/register">Register</a>
+        {% endif %}
+      </nav>
+      <hr />
     </header>
-    
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+
+    <main>{% block content %}{% endblock %}</main>
 
     <footer>
-        <hr>
-        <p>&copy; 2026 sakinfan.com</p>
+      <hr />
+      <p>&copy; 2026 sakinfan.com</p>
     </footer>
-</body>
+  </body>
 </html>

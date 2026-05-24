@@ -1,33 +1,52 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}{{ board.name }} - sakinfan.com{%
+endblock %} {% block content %}
+<h2>{{ board.name }}</h2>
+<p>{{ board.description }}</p>
 
-{% block title %}{{ board.name }} - sakinfan.com{% endblock %}
+{% if user %}
+<p><a href="/board/{{ board.id }}/new">[ Create New Thread ]</a></p>
+{% endif %}
 
-{% block content %}
-    <h2>{{ board.name }}</h2>
-    <p>{{ board.description }}</p>
+<div class="pagination">
+  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  {% endif %} {% if current_page < total_pages %}
+  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  {% endif %}
+</div>
 
-    {% if user %}
-        <p><a href="/board/{{ board.id }}/new">[ Create New Thread ]</a></p>
-    {% endif %}
+<table border="1" width="100%" cellpadding="5">
+  <thead>
+    <tr>
+      <th align="left">Thread</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for thread in threads %}
+    <tr>
+      <td>
+        <strong>
+          {% if thread.is_pinned %}[PINNED] {% endif %} {% if thread.is_locked
+          %}[LOCKED] {% endif %}
+          <a href="/thread/{{ thread.id }}">{{ thread.title }}</a>
+        </strong>
+      </td>
+      <td align="center">{{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="2">No threads yet.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-    <table border="1" width="100%" cellpadding="5">
-        <thead>
-            <tr>
-                <th align="left">Thread</th>
-                <th>Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for thread in threads %}
-            <tr>
-                <td><strong><a href="/thread/{{ thread.id }}">{{ thread.title }}</a></strong></td>
-                <td align="center">{{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="2">No threads yet.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="pagination">
+  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  {% endif %} {% if current_page < total_pages %}
+  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  {% endif %}
+</div>
 {% endblock %}

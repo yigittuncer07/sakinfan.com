@@ -10,22 +10,22 @@ exposed externally via a cloudflared tunnel.
 
 ## Tech Stack
 
-| Layer | Choice |
-| --- | --- |
-| Language | Python 3.12 |
-| Web framework | FastAPI |
-| Form parsing | python-multipart |
-| DB driver | asyncpg |
-| ORM | SQLAlchemy 2.x (async) |
-| DB | PostgreSQL (external, already running on host) |
-| Sessions | Starlette SessionMiddleware (client-side cookies) |
-| Security | asgi-csrf (CSRF protection) |
-| Auth | passlib[bcrypt] (Password hashing) |
-| Templating | Jinja2 (via fastapi.templating.Jinja2Templates with autoescape=True) |
-| Frontend | Vanilla HTML + hand-written CSS, no JS frameworks |
-| Reverse proxy | nginx |
-| Tunnel | cloudflared |
-| Containerization | Docker Compose |
+| Layer            | Choice                                                               |
+| ---------------- | -------------------------------------------------------------------- |
+| Language         | Python 3.12                                                          |
+| Web framework    | FastAPI                                                              |
+| Form parsing     | python-multipart                                                     |
+| DB driver        | asyncpg                                                              |
+| ORM              | SQLAlchemy 2.x (async)                                               |
+| DB               | PostgreSQL (external, already running on host)                       |
+| Sessions         | Starlette SessionMiddleware (client-side cookies)                    |
+| Security         | asgi-csrf (CSRF protection)                                          |
+| Auth             | passlib[bcrypt] (Password hashing)                                   |
+| Templating       | Jinja2 (via fastapi.templating.Jinja2Templates with autoescape=True) |
+| Frontend         | Vanilla HTML + hand-written CSS, no JS frameworks                    |
+| Reverse proxy    | nginx                                                                |
+| Tunnel           | cloudflared                                                          |
+| Containerization | Docker Compose                                                       |
 
 ---
 
@@ -53,7 +53,7 @@ FastAPI (gunicorn + uvicorn workers)
 
 ```
 
-All HTML is rendered server-side. Forms use standard  and are parsed via python-multipart. There is no frontend build step, no bundler, no TypeScript. JavaScript is only used where absolutely necessary (e.g. confirm-before-delete), and must be vanilla JS inline or in a single static/main.js file.
+All HTML is rendered server-side. Forms use standard and are parsed via python-multipart. There is no frontend build step, no bundler, no TypeScript. JavaScript is only used where absolutely necessary (e.g. confirm-before-delete), and must be vanilla JS inline or in a single static/main.js file.
 
 ---
 
@@ -220,38 +220,38 @@ asgi-csrf middleware must be configured in main.py. The CSRF token must be injec
 
 ### Auth (/)
 
-| Method | Path | Description |
-| --- | --- | --- |
-| GET | /login | Render login form |
-| POST | /login | Authenticate, set session, redirect to / |
-| GET | /register | Render registration form |
-| POST | /register | Create user, set session, redirect to / |
-| POST | /logout | Clear session, redirect to /login |
+| Method | Path      | Description                              |
+| ------ | --------- | ---------------------------------------- |
+| GET    | /login    | Render login form                        |
+| POST   | /login    | Authenticate, set session, redirect to / |
+| GET    | /register | Render registration form                 |
+| POST   | /register | Create user, set session, redirect to /  |
+| POST   | /logout   | Clear session, redirect to /login        |
 
 ### Boards (/)
 
-| Method | Path | Description |
-| --- | --- | --- |
-| GET | / | List all boards with thread/post counts |
+| Method | Path | Description                             |
+| ------ | ---- | --------------------------------------- |
+| GET    | /    | List all boards with thread/post counts |
 
 ### Threads (/board/{board_id})
 
-| Method | Path | Description |
-| --- | --- | --- |
-| GET | /board/{board_id} | List threads in a board (paginated) |
-| GET | /board/{board_id}/new | Render new thread form (auth required) |
-| POST | /board/{board_id}/new | Create thread + first post, redirect to thread |
+| Method | Path                  | Description                                    |
+| ------ | --------------------- | ---------------------------------------------- |
+| GET    | /board/{board_id}     | List threads in a board (paginated)            |
+| GET    | /board/{board_id}/new | Render new thread form (auth required)         |
+| POST   | /board/{board_id}/new | Create thread + first post, redirect to thread |
 
 ### Posts (/thread/{thread_id})
 
-| Method | Path | Description |
-| --- | --- | --- |
-| GET | /thread/{thread_id} | View thread and all posts (paginated) |
-| POST | /thread/{thread_id}/reply | Add a reply post (auth required) |
-| POST | /post/{post_id}/delete | Delete a post (author or admin only) |
-| POST | /thread/{thread_id}/delete | Delete a thread and all posts (admin only) |
-| POST | /thread/{thread_id}/lock | Toggle lock on thread (admin only) |
-| POST | /thread/{thread_id}/pin | Toggle pin on thread (admin only) |
+| Method | Path                       | Description                                |
+| ------ | -------------------------- | ------------------------------------------ |
+| GET    | /thread/{thread_id}        | View thread and all posts (paginated)      |
+| POST   | /thread/{thread_id}/reply  | Add a reply post (auth required)           |
+| POST   | /post/{post_id}/delete     | Delete a post (author or admin only)       |
+| POST   | /thread/{thread_id}/delete | Delete a thread and all posts (admin only) |
+| POST   | /thread/{thread_id}/lock   | Toggle lock on thread (admin only)         |
+| POST   | /thread/{thread_id}/pin    | Toggle pin on thread (admin only)          |
 
 All protected routes check get_current_user. If not authenticated, redirect to /login.
 If authenticated but not authorized (e.g. non-admin trying admin action), return HTTP 403.
@@ -289,10 +289,10 @@ The posts.py service must process raw user input using a lightweight BBCode or M
 
 app/dependencies.py must provide:
 
-* get_db — yields an AsyncSession from the session factory
-* get_current_user — reads user_id from session cookie, loads user from DB, checks ban status. Returns User | None.
-* require_user — calls get_current_user, raises HTTPException(401) or redirects to /login if not authenticated. Returns User.
-* require_admin — calls require_user, raises HTTPException(403) if not admin.
+- get_db — yields an AsyncSession from the session factory
+- get_current_user — reads user_id from session cookie, loads user from DB, checks ban status. Returns User | None.
+- require_user — calls get_current_user, raises HTTPException(401) or redirects to /login if not authenticated. Returns User.
+- require_admin — calls require_user, raises HTTPException(403) if not admin.
 
 ---
 
@@ -300,39 +300,39 @@ app/dependencies.py must provide:
 
 ### Base Template (base.html)
 
-* Standard HTML5 document
-* Links to /static/style.css
-* Contains a site header with: site name (hardcoded "sakinfan.com"), navigation links (Home, Login/Register or Username + Logout depending on session)
-* A {% block content %}{% endblock %} for page content
-* Simple footer with current year
+- Standard HTML5 document
+- Links to /static/style.css
+- Contains a site header with: site name (hardcoded "sakinfan.com"), navigation links (Home, Login/Register or Username + Logout depending on session)
+- A {% block content %}{% endblock %} for page content
+- Simple footer with current year
 
 ### Aesthetic Guidelines
 
-* Oldschool forum look. Think phpBB 2.x, early 2000s message boards.
-* Table-based layout for thread and post lists (actual  elements)
-* Muted color palette: off-white background, dark navy or grey header, visible borders
-* No shadows, no rounded corners, no gradients (or very minimal)
-* Fixed-width container (~900px max), centered
-* Post bodies use a monospace or serif font
-* Username, timestamp, post count shown clearly on each post
-* CSS must be a single hand-written style.css file. No frameworks, no preprocessors.
-* Ensure Jinja2's autoescape=True is enabled by default to prevent XSS injections.
+- Oldschool forum look. Think phpBB 2.x, early 2000s message boards.
+- Table-based layout for thread and post lists (actual elements)
+- Muted color palette: off-white background, dark navy or grey header, visible borders
+- No shadows, no rounded corners, no gradients (or very minimal)
+- Fixed-width container (~900px max), centered
+- Post bodies use a monospace or serif font
+- Username, timestamp, post count shown clearly on each post
+- CSS must be a single hand-written style.css file. No frameworks, no preprocessors.
+- Ensure Jinja2's autoescape=True is enabled by default to prevent XSS injections.
 
 ### Forms
 
-* All forms use standard HTML form elements
-* **Must** include a hidden CSRF token field: 
-* Show validation errors inline below the relevant field
-* Errors passed from route handler to template via template context
+- All forms use standard HTML form elements
+- **Must** include a hidden CSRF token field:
+- Show validation errors inline below the relevant field
+- Errors passed from route handler to template via template context
 
 ---
 
 ## Error Handling
 
-* 404: render a simple 404.html template ("Thread not found", "Board not found", etc.)
-* 403: render a simple 403.html template ("You don't have permission to do that.")
-* 500: render a simple 500.html template. Do not expose stack traces in production.
-* Add a global exception handler in main.py for unhandled exceptions.
+- 404: render a simple 404.html template ("Thread not found", "Board not found", etc.)
+- 403: render a simple 403.html template ("You don't have permission to do that.")
+- 500: render a simple 500.html template. Do not expose stack traces in production.
+- Add a global exception handler in main.py for unhandled exceptions.
 
 ---
 
@@ -341,9 +341,9 @@ app/dependencies.py must provide:
 This is not a priority at all
 Use Alembic for database migrations.
 
-* alembic.ini configured to use async SQLAlchemy
-* Initial migration creates all tables
-* Include instructions in README for running migrations:
+- alembic.ini configured to use async SQLAlchemy
+- Initial migration creates all tables
+- Include instructions in README for running migrations:
 
 ```
 docker compose exec web alembic upgrade head
@@ -357,22 +357,22 @@ docker compose exec web alembic upgrade head
 
 ### Dockerfile
 
-* Base image: python:3.12-slim
-* Install dependencies from requirements.txt (must include python-multipart, passlib[bcrypt], asgi-csrf)
-* Copy app source
-* Run with: gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+- Base image: python:3.12-slim
+- Install dependencies from requirements.txt (must include python-multipart, passlib[bcrypt], asgi-csrf)
+- Copy app source
+- Run with: gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
 
 ### docker-compose.yml
 
 Services:
 
-* web — the FastAPI app, depends on postgre
-* postgre — the database
-* nginx — nginx:alpine, config from ./nginx/nginx.conf, ports 80:80
-#- tunnel — cloudflare/cloudflared:latest, runs tunnel --no-autoupdate run do not implement at first
-* Requires TUNNEL_TOKEN env var
+- web — the FastAPI app, depends on postgre
+- postgre — the database
+- nginx — nginx:alpine, config from ./nginx/nginx.conf, ports 80:80
+  #- tunnel — cloudflare/cloudflared:latest, runs tunnel --no-autoupdate run do not implement at first
+- Requires TUNNEL_TOKEN env var
 
 ### nginx/nginx.conf
 
-* Reverse proxy to web:8000
-* Serve /static files directly from the container volume
+- Reverse proxy to web:8000
+- Serve /static files directly from the container volume
