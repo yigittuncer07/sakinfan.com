@@ -4,22 +4,22 @@ endblock %} {% block content %}
 <p>{{ board.description }}</p>
 
 {% if user %}
-<p><a href="/board/{{ board.id }}/new">[ Create New Thread ]</a></p>
+<p><a href="/board/{{ board.id }}/new">[ Yeni Konu Aç ]</a></p>
 {% endif %}
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
 <table border="1" width="100%" cellpadding="5">
   <thead>
     <tr>
-      <th align="left">Thread</th>
-      <th>Created At</th>
+      <th align="left">Konu</th>
+      <th>Oluşturulma Tarihi</th>
     </tr>
   </thead>
   <tbody>
@@ -27,8 +27,8 @@ endblock %} {% block content %}
     <tr>
       <td>
         <strong>
-          {% if thread.is_pinned %}[PINNED] {% endif %} {% if thread.is_locked
-          %}[LOCKED] {% endif %}
+          {% if thread.is_pinned %}[SABİTLENDİ] {% endif %} {% if thread.is_locked
+          %}[KİLİTLİ] {% endif %}
           <a href="/thread/{{ thread.id }}">{{ thread.title }}</a>
         </strong>
       </td>
@@ -36,17 +36,17 @@ endblock %} {% block content %}
     </tr>
     {% else %}
     <tr>
-      <td colspan="2">No threads yet.</td>
+      <td colspan="2">Henüz konu bulunmuyor.</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 {% endblock %}

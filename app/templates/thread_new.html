@@ -1,6 +1,6 @@
-{% extends "base.html" %} {% block title %}New Thread in {{ board.name }} -
+{% extends "base.html" %} {% block title %}{{ board.name }} - Yeni Konu -
 sakinfan.com{% endblock %} {% block content %}
-<h2>Create New Thread in {{ board.name }}</h2>
+<h2>{{ board.name }} - Yeni Konu Oluştur</h2>
 <form method="POST" action="/board/{{ board.id }}/new">
   <input
     type="hidden"
@@ -8,11 +8,11 @@ sakinfan.com{% endblock %} {% block content %}
     value="{{ request.scope['csrftoken']() }}"
   />
   <p>
-    <label for="title">Title:</label><br />
+    <label for="title">Başlık:</label><br />
     <input type="text" id="title" name="title" style="width: 100%" required />
   </p>
   <p>
-    <label for="body">Post Body:</label><br />
+    <label for="body">Mesaj:</label><br />
     <textarea
       id="body"
       name="body"
@@ -22,7 +22,7 @@ sakinfan.com{% endblock %} {% block content %}
     ></textarea>
   </p>
   <p>
-    <button type="submit">Post Thread</button>
+    <button type="submit">Konuyu Aç</button>
   </p>
 </form>
 {% endblock %}

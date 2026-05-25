@@ -12,19 +12,24 @@ async def initialize_database(db: AsyncSession):
     if not board_result.scalars().first():
         boards = [
             Board(
-                name="General Discussion",
-                description="Talk about anything.",
+                name="Sakin & Müzik",
+                description="Sakin şarkıları, albümleri, söz analizleri ve müzikal tartışmalar.",
                 display_order=1,
             ),
             Board(
-                name="Tech & Code",
-                description="Programming and hardware.",
+                name="Konserler & Anılar",
+                description="Eski konser kayıtları, fotoğraflar ve grupla ilgili kişisel anılarınız.",
                 display_order=2,
             ),
             Board(
-                name="Site Feedback",
-                description="Bug reports and suggestions.",
+                name="Genel Sohbet",
+                description="Sakin dışındaki müzikler, filmler ve günlük hayat hakkında sohbet alanı.",
                 display_order=3,
+            ),
+            Board(
+                name="Site Hakkında",
+                description="Forum için öneriler, duyurular ve hata bildirimleri.",
+                display_order=4,
             ),
         ]
         db.add_all(boards)

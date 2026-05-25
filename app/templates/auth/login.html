@@ -1,6 +1,6 @@
-{% extends "base.html" %} {% block title %}Login - sakinfan.com{% endblock %} {%
+{% extends "base.html" %} {% block title %}Giriş Yap - sakinfan.com{% endblock %} {%
 block content %}
-<h2>Login</h2>
+<h2>Giriş Yap</h2>
 {% if error %}
 <p style="color: red">{{ error }}</p>
 {% endif %}
@@ -11,15 +11,15 @@ block content %}
     value="{{ request.scope['csrftoken']() }}"
   />
   <p>
-    <label for="username">Username:</label><br />
+    <label for="username">Kullanıcı Adı:</label><br />
     <input type="text" id="username" name="username" required />
   </p>
   <p>
-    <label for="password">Password:</label><br />
+    <label for="password">Şifre:</label><br />
     <input type="password" id="password" name="password" required />
   </p>
   <p>
-    <button type="submit">Login</button>
+    <button type="submit">Giriş Yap</button>
   </p>
 </form>
 {% endblock %}

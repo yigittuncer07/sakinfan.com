@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block title %}{{ thread.title }} - sakinfan.com{%
 endblock %} {% block content %}
-<p><a href="/board/{{ thread.board_id }}">&laquo; Back to Board</a></p>
+<p><a href="/board/{{ thread.board_id }}">&laquo; Foruma Dön</a></p>
 
 <h2>
-  {% if thread.is_pinned %}[PINNED] {% endif %} {% if thread.is_locked
-  %}[LOCKED] {% endif %} {{ thread.title }}
+  {% if thread.is_pinned %}[SABİTLENDİ] {% endif %} {% if thread.is_locked
+  %}[KİLİTLİ] {% endif %} {{ thread.title }}
 </h2>
 
 {% if user and user.is_admin %}
@@ -16,7 +16,7 @@ endblock %} {% block content %}
     border: 1px dashed #000;
   "
 >
-  <strong>Admin Tools:</strong>
+  <strong>Yönetici Araçları:</strong>
   <form
     method="POST"
     action="/thread/{{ thread.id }}/pin"
@@ -28,7 +28,7 @@ endblock %} {% block content %}
       value="{{ request.scope['csrftoken']() }}"
     />
     <button type="submit">
-      {% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}
+      {% if thread.is_pinned %}Sabitlemeyi Kaldır{% else %}Sabitle{% endif %}
     </button>
   </form>
   <form
@@ -42,7 +42,7 @@ endblock %} {% block content %}
       value="{{ request.scope['csrftoken']() }}"
     />
     <button type="submit">
-      {% if thread.is_locked %}Unlock{% else %}Lock{% endif %}
+      {% if thread.is_locked %}Kilidi Aç{% else %}Kilitle{% endif %}
     </button>
   </form>
   <form
@@ -50,7 +50,7 @@ endblock %} {% block content %}
     action="/thread/{{ thread.id }}/delete"
     style="display: inline"
     onsubmit="
-      return confirm('Are you sure you want to delete this entire thread?');
+      return confirm('Bu konuyu tamamen silmek istediğinize emin misiniz?');
     "
   >
     <input
@@ -58,16 +58,16 @@ endblock %} {% block content %}
       name="csrftoken"
       value="{{ request.scope['csrftoken']() }}"
     />
-    <button type="submit" style="color: red">Delete Thread</button>
+    <button type="submit" style="color: red">Konuyu Sil</button>
   </form>
 </div>
 {% endif %}
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
@@ -85,7 +85,7 @@ endblock %} {% block content %}
         <form
           method="POST"
           action="/post/{{ post.id }}/delete"
-          onsubmit="return confirm('Delete this post?');"
+          onsubmit="return confirm('Bu mesaj silinsin mi?');"
         >
           <input
             type="hidden"
@@ -93,7 +93,7 @@ endblock %} {% block content %}
             value="{{ request.scope['csrftoken']() }}"
           />
           <button type="submit" style="font-size: 0.8em; color: red">
-            Delete Post
+            Mesajı Sil
           </button>
         </form>
       </div>
@@ -104,17 +104,17 @@ endblock %} {% block content %}
 </table>
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
 {% if thread.is_locked and not (user and user.is_admin) %}
-<p><em>This thread is locked. You cannot reply.</em></p>
+<p><em>Bu konu kilitli. Cevap yazamazsınız.</em></p>
 {% elif user %}
-<h3>Add Reply</h3>
+<h3>Cevap Yaz</h3>
 <form method="POST" action="/thread/{{ thread.id }}/reply">
   <input
     type="hidden"
@@ -131,11 +131,11 @@ endblock %} {% block content %}
     ></textarea>
   </p>
   <p>
-    <button type="submit">Post Reply</button>
+    <button type="submit">Cevabı Gönder</button>
   </p>
 </form>
 {% else %}
 <p>
-  <em>You must <a href="/login">login</a> to reply.</em>
+  <em>Cevap yazmak için <a href="/login">giriş yapmalısınız</a>.</em>
 </p>
 {% endif %} {% endblock %}

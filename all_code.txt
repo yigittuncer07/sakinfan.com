@@ -25,8 +25,6 @@ services:
       - SESSION_COOKIE_NAME=sakinfan_session
       - SESSION_TTL_SECONDS=604800
       - DEBUG=False
-    depends_on:
-      - postgre
     volumes:
       - .:/app # Mounts local code for easy updates without rebuilding
     depends_on:
@@ -51,6 +49,7 @@ volumes:
 === /home/jeff/projects/sakinfan.com/requirements.txt ===
 fastapi
 uvicorn
+gunicorn
 jinja2
 sqlalchemy
 asyncpg
@@ -59,7 +58,10 @@ python-multipart
 asgi-csrf
 bcrypt
 markdown
-bleach-e 
+bleach
+httpx
+python-dotenv
+-e 
 
 === /home/jeff/projects/sakinfan.com/.env.example ===
 DATABASE_URL=postgresql+asyncpg://username:password@localhost:5432/forum
@@ -85,42 +87,6 @@ COPY . .
 EXPOSE 8000
 
 CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000"]-e 
-
-=== /home/jeff/projects/sakinfan.com/nginx.conf ===
-events {
-    worker_connections 1024;
-}
-
-http {
-    include mime.types;
-    default_type application/octet-stream;
-
-    upstream web_app {
-        # 'web' is the hostname of the FastAPI container in docker-compose
-        server web:8000;
-    }
-
-    server {
-        listen 80;
-        server_name localhost;
-
-        # Serve static files directly without hitting FastAPI
-        location /static/ {
-            alias /app/app/static/;
-            expires 30d;
-            add_header Cache-Control "public, max-age=2592000";
-        }
-
-        # Reverse proxy all other traffic to FastAPI
-        location / {
-            proxy_pass http://web_app;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-    }
-}-e 
 
 === /home/jeff/projects/sakinfan.com/app/dependencies.py ===
 from fastapi import Request, Depends, HTTPException, status

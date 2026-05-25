@@ -1,10 +1,21 @@
 {% extends "base.html" %} {% block content %}
-<h2>Boards</h2>
+
+<section style="margin-bottom: 30px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd;">
+  <h2>Sakin Hakkında</h2>
+  <p>
+    <strong>Sakin</strong>, 1999 yılında Ankara'da kurulan Türk indie rock/alternatif rock grubudur. 
+    Onur Özdemir (vokal, gitar), Özdemir Dereli (gitar), Koray Candemir (bas gitar) ve Soner Büyüknisan (bateri) kadrosuyla bilinirler. 
+    2008 yılında yayımladıkları <em>"Hayat"</em> albümü ile büyük beğeni toplayan grup, 2011 yılında dağılmıştır. 
+    Bu platform, grubun mirasını yaşatmak ve hayranlarını bir araya getirmek için kurulmuştur.
+  </p>
+</section>
+
+<h2>Forumlar</h2>
 <table border="1" width="100%" cellpadding="5">
   <thead>
     <tr>
-      <th align="left">Board</th>
-      <th>Stats</th>
+      <th align="left">Kategori</th>
+      <th>İstatistikler</th>
     </tr>
   </thead>
   <tbody>
@@ -15,10 +26,11 @@
         ><br />
         <small>{{ board.description }}</small>
       </td>
-      <td align="center">{{ board.thread_count }} Threads<br>{{ board.post_count }} Posts</td>    </tr>
+      <td align="center">{{ board.thread_count }} Konu<br>{{ board.post_count }} Mesaj</td>    
+    </tr>
     {% else %}
     <tr>
-      <td colspan="2">No boards available.</td>
+      <td colspan="2">Henüz forum bulunmuyor.</td>
     </tr>
     {% endfor %}
   </tbody>

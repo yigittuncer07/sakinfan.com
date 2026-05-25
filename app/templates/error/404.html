@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}404 Not Found - sakinfan.com{% endblock %}
+{% block title %}404 Bulunamadı - sakinfan.com{% endblock %}
 {% block content %}
-    <h2 class="error">404 - Not Found</h2>
-    <p>{{ message | default("The requested resource could not be found.") }}</p>
-    <p><a href="/">&laquo; Return to Index</a></p>
+    <h2 class="error">404 - Bulunamadı</h2>
+    <p>{{ message | default("İstenen kaynak bulunamadı.") }}</p>
+    <p><a href="/">&laquo; Ana Sayfaya Dön</a></p>
 {% endblock %}

@@ -24,8 +24,6 @@ services:
       - SESSION_COOKIE_NAME=sakinfan_session
       - SESSION_TTL_SECONDS=604800
       - DEBUG=False
-    depends_on:
-      - postgre
     volumes:
       - .:/app # Mounts local code for easy updates without rebuilding
     depends_on:
