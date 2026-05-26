@@ -1,66 +1,134 @@
 === /home/jeff/projects/sakinfan.com/app/static/style.css ===
 body {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  background-color: #e5e5e5;
-  color: #000000;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  background-color: #d1c5b0; /* Beige from Hayat album cover */
+  /* background-image: url('/static/background.jpg'); /* Uncomment if you add the actual pattern image */
+  color: #3b3632; /* Charcoal from text/circles */
   margin: 0;
-  padding: 20px;
+  padding: 20px 0;
 }
 main {
   max-width: 900px;
   margin: 0 auto;
   background-color: #ffffff;
-  border: 1px solid #000000;
+  border-left: 1px solid #a39c8d;
+  border-right: 1px solid #a39c8d;
   padding: 20px;
 }
-header,
-footer {
+header, footer {
   max-width: 900px;
   margin: 0 auto;
+  background-color: #ffffff;
+  border-left: 1px solid #a39c8d;
+  border-right: 1px solid #a39c8d;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+header {
+  border-top: 1px solid #a39c8d;
+  border-bottom: 2px solid #a11920; /* Red accent */
+}
+footer {
+  border-bottom: 1px solid #a39c8d;
   text-align: center;
+  font-size: 0.85em;
+  color: #666;
+}
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.banner h1 {
+  margin: 0;
+  font-size: 2.2em;
+  color: #3b3632;
+  font-style: italic;
+}
+.banner .logo {
+  font-size: 3.5em;
+  font-weight: normal;
+  letter-spacing: -2px;
+  color: #3b3632;
+}
+nav {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+nav a, nav button {
+  color: #3b3632;
+  padding: 0 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+nav a:hover, nav button:hover {
+  color: #a11920;
+}
+nav span {
+  font-weight: normal;
+  color: #666;
+  padding: 0 10px;
 }
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  background-color: #fefefe;
+  background-color: #fcfcfc;
 }
 th {
-  background-color: #003366;
-  color: #ffffff;
+  background-color: #3b3632;
+  color: #d1c5b0;
   font-weight: bold;
-  padding: 5px;
-  border: 1px solid #000000;
+  padding: 8px;
+  border: 1px solid #a39c8d;
+  font-size: 0.85em;
 }
 td {
-  padding: 8px;
-  border: 1px solid #000000;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  font-size: 0.9em;
 }
 .post-author {
-  background-color: #f0f0f0;
+  background-color: #f4f4f4;
   width: 150px;
   vertical-align: top;
+  border-right: 1px solid #dcdcdc;
 }
 .post-body {
   vertical-align: top;
-  font-family: "Courier New", Courier, monospace;
 }
 .pagination {
   margin: 10px 0;
   font-size: 0.9em;
 }
 a {
-  color: #003366;
+  color: #3b3632;
   text-decoration: none;
 }
 a:hover {
+  color: #a11920;
   text-decoration: underline;
 }
 .error {
-  color: #ff0000;
+  color: #a11920;
   font-weight: bold;
 }
--e 
+button {
+  background-color: #3b3632;
+  color: #d1c5b0;
+  border: 1px solid #1a1816;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover {
+  background-color: #a11920;
+  color: #ffffff;
+}-e 
 
 === /home/jeff/projects/sakinfan.com/app/services/seeder.py ===
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -118,33 +186,36 @@ async def initialize_database(db: AsyncSession):
 === /home/jeff/projects/sakinfan.com/app/templates/index.html ===
 {% extends "base.html" %} {% block content %}
 
-<section style="margin-bottom: 30px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd;">
-  <h2>Sakin Hakkında</h2>
-  <p>
+<section style="margin-bottom: 25px; padding: 15px; background-color: #f4f4f4; border: 1px solid #dcdcdc;">
+  <h2 style="margin-top: 0; color: #a11920;">Sakin Hakkında</h2>
+  <p style="margin-bottom: 0; line-height: 1.5;">
     <strong>Sakin</strong>, 1999 yılında Ankara'da kurulan Türk indie rock/alternatif rock grubudur. 
-    Onur Özdemir (vokal, gitar), Özdemir Dereli (gitar), Koray Candemir (bas gitar) ve Soner Büyüknisan (bateri) kadrosuyla bilinirler. 
+    Onur Özdemir, Özdemir Dereli, Koray Candemir ve Soner Büyüknisan kadrosuyla bilinirler. 
     2008 yılında yayımladıkları <em>"Hayat"</em> albümü ile büyük beğeni toplayan grup, 2011 yılında dağılmıştır. 
     Bu platform, grubun mirasını yaşatmak ve hayranlarını bir araya getirmek için kurulmuştur.
   </p>
 </section>
 
-<h2>Forumlar</h2>
-<table border="1" width="100%" cellpadding="5">
+<table width="100%">
   <thead>
     <tr>
       <th align="left">Kategori</th>
-      <th>İstatistikler</th>
+      <th width="20%">İstatistikler</th>
     </tr>
   </thead>
   <tbody>
     {% for board in boards %}
     <tr>
       <td>
-        <strong><a href="/board/{{ board.id }}">{{ board.name }}</a></strong
-        ><br />
-        <small>{{ board.description }}</small>
+        <strong><a href="/board/{{ board.id }}" style="font-size: 1.1em;">{{ board.name }}</a></strong><br />
+        <span style="font-size: 0.85em; color: #555;">{{ board.description }}</span>
       </td>
-      <td align="center">{{ board.thread_count }} Konu<br>{{ board.post_count }} Mesaj</td>    
+      <td align="center">
+        <span style="font-size: 0.85em;">
+          <strong>{{ board.thread_count }}</strong> Konu<br>
+          <strong>{{ board.post_count }}</strong> Mesaj
+        </span>
+      </td>    
     </tr>
     {% else %}
     <tr>
@@ -156,9 +227,9 @@ async def initialize_database(db: AsyncSession):
 {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/auth/register.html ===
-{% extends "base.html" %} {% block title %}Register - sakinfan.com{% endblock %}
+{% extends "base.html" %} {% block title %}Kayıt Ol - sakinfan.com{% endblock %}
 {% block content %}
-<h2>Register</h2>
+<h2>Kayıt Ol</h2>
 {% if error %}
 <p style="color: red">{{ error }}</p>
 {% endif %}
@@ -169,28 +240,27 @@ async def initialize_database(db: AsyncSession):
     value="{{ request.scope['csrftoken']() }}"
   />
   <p>
-    <label for="username">Username:</label><br />
+    <label for="username">Kullanıcı Adı:</label><br />
     <input type="text" id="username" name="username" required />
   </p>
   <p>
-    <label for="email">Email:</label><br />
+    <label for="email">E-posta:</label><br />
     <input type="email" id="email" name="email" required />
   </p>
   <p>
-    <label for="password">Password:</label><br />
+    <label for="password">Şifre:</label><br />
     <input type="password" id="password" name="password" required />
   </p>
   <p>
-    <button type="submit">Register</button>
+    <button type="submit">Kayıt Ol</button>
   </p>
 </form>
-{% endblock %}
--e 
+{% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/auth/login.html ===
-{% extends "base.html" %} {% block title %}Login - sakinfan.com{% endblock %} {%
+{% extends "base.html" %} {% block title %}Giriş Yap - sakinfan.com{% endblock %} {%
 block content %}
-<h2>Login</h2>
+<h2>Giriş Yap</h2>
 {% if error %}
 <p style="color: red">{{ error }}</p>
 {% endif %}
@@ -201,55 +271,54 @@ block content %}
     value="{{ request.scope['csrftoken']() }}"
   />
   <p>
-    <label for="username">Username:</label><br />
+    <label for="username">Kullanıcı Adı:</label><br />
     <input type="text" id="username" name="username" required />
   </p>
   <p>
-    <label for="password">Password:</label><br />
+    <label for="password">Şifre:</label><br />
     <input type="password" id="password" name="password" required />
   </p>
   <p>
-    <button type="submit">Login</button>
+    <button type="submit">Giriş Yap</button>
   </p>
 </form>
-{% endblock %}
--e 
+{% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/error/403.html ===
 {% extends "base.html" %}
-{% block title %}403 Forbidden - sakinfan.com{% endblock %}
+{% block title %}403 Yasak - sakinfan.com{% endblock %}
 {% block content %}
-    <h2 class="error">403 - Forbidden</h2>
-    <p>{{ message | default("You do not have permission to access this page.") }}</p>
-    <p><a href="/">&laquo; Return to Index</a></p>
+    <h2 class="error">403 - Yasak</h2>
+    <p>{{ message | default("Bu sayfaya erişim izniniz yok.") }}</p>
+    <p><a href="/">&laquo; Ana Sayfaya Dön</a></p>
 {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/error/500.html ===
 {% extends "base.html" %}
-{% block title %}500 Server Error - sakinfan.com{% endblock %}
+{% block title %}500 Sunucu Hatası - sakinfan.com{% endblock %}
 {% block content %}
-    <h2 class="error">500 - Internal Server Error</h2>
-    <p>Something went wrong on our end. Please try again later.</p>
-    <p><a href="/">&laquo; Return to Index</a></p>
+    <h2 class="error">500 - İç Sunucu Hatası</h2>
+    <p>Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin.</p>
+    <p><a href="/">&laquo; Ana Sayfaya Dön</a></p>
 {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/error/404.html ===
 {% extends "base.html" %}
-{% block title %}404 Not Found - sakinfan.com{% endblock %}
+{% block title %}404 Bulunamadı - sakinfan.com{% endblock %}
 {% block content %}
-    <h2 class="error">404 - Not Found</h2>
-    <p>{{ message | default("The requested resource could not be found.") }}</p>
-    <p><a href="/">&laquo; Return to Index</a></p>
+    <h2 class="error">404 - Bulunamadı</h2>
+    <p>{{ message | default("İstenen kaynak bulunamadı.") }}</p>
+    <p><a href="/">&laquo; Ana Sayfaya Dön</a></p>
 {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/thread.html ===
 {% extends "base.html" %} {% block title %}{{ thread.title }} - sakinfan.com{%
 endblock %} {% block content %}
-<p><a href="/board/{{ thread.board_id }}">&laquo; Back to Board</a></p>
+<p><a href="/board/{{ thread.board_id }}">&laquo; Foruma Dön</a></p>
 
 <h2>
-  {% if thread.is_pinned %}[PINNED] {% endif %} {% if thread.is_locked
-  %}[LOCKED] {% endif %} {{ thread.title }}
+  {% if thread.is_pinned %}[SABİTLENDİ] {% endif %} {% if thread.is_locked
+  %}[KİLİTLİ] {% endif %} {{ thread.title }}
 </h2>
 
 {% if user and user.is_admin %}
@@ -261,7 +330,7 @@ endblock %} {% block content %}
     border: 1px dashed #000;
   "
 >
-  <strong>Admin Tools:</strong>
+  <strong>Yönetici Araçları:</strong>
   <form
     method="POST"
     action="/thread/{{ thread.id }}/pin"
@@ -273,7 +342,7 @@ endblock %} {% block content %}
       value="{{ request.scope['csrftoken']() }}"
     />
     <button type="submit">
-      {% if thread.is_pinned %}Unpin{% else %}Pin{% endif %}
+      {% if thread.is_pinned %}Sabitlemeyi Kaldır{% else %}Sabitle{% endif %}
     </button>
   </form>
   <form
@@ -287,7 +356,7 @@ endblock %} {% block content %}
       value="{{ request.scope['csrftoken']() }}"
     />
     <button type="submit">
-      {% if thread.is_locked %}Unlock{% else %}Lock{% endif %}
+      {% if thread.is_locked %}Kilidi Aç{% else %}Kilitle{% endif %}
     </button>
   </form>
   <form
@@ -295,7 +364,7 @@ endblock %} {% block content %}
     action="/thread/{{ thread.id }}/delete"
     style="display: inline"
     onsubmit="
-      return confirm('Are you sure you want to delete this entire thread?');
+      return confirm('Bu konuyu tamamen silmek istediğinize emin misiniz?');
     "
   >
     <input
@@ -303,16 +372,16 @@ endblock %} {% block content %}
       name="csrftoken"
       value="{{ request.scope['csrftoken']() }}"
     />
-    <button type="submit" style="color: red">Delete Thread</button>
+    <button type="submit" style="color: red">Konuyu Sil</button>
   </form>
 </div>
 {% endif %}
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
@@ -330,7 +399,7 @@ endblock %} {% block content %}
         <form
           method="POST"
           action="/post/{{ post.id }}/delete"
-          onsubmit="return confirm('Delete this post?');"
+          onsubmit="return confirm('Bu mesaj silinsin mi?');"
         >
           <input
             type="hidden"
@@ -338,7 +407,7 @@ endblock %} {% block content %}
             value="{{ request.scope['csrftoken']() }}"
           />
           <button type="submit" style="font-size: 0.8em; color: red">
-            Delete Post
+            Mesajı Sil
           </button>
         </form>
       </div>
@@ -349,17 +418,17 @@ endblock %} {% block content %}
 </table>
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
 {% if thread.is_locked and not (user and user.is_admin) %}
-<p><em>This thread is locked. You cannot reply.</em></p>
+<p><em>Bu konu kilitli. Cevap yazamazsınız.</em></p>
 {% elif user %}
-<h3>Add Reply</h3>
+<h3>Cevap Yaz</h3>
 <form method="POST" action="/thread/{{ thread.id }}/reply">
   <input
     type="hidden"
@@ -376,20 +445,19 @@ endblock %} {% block content %}
     ></textarea>
   </p>
   <p>
-    <button type="submit">Post Reply</button>
+    <button type="submit">Cevabı Gönder</button>
   </p>
 </form>
 {% else %}
 <p>
-  <em>You must <a href="/login">login</a> to reply.</em>
+  <em>Cevap yazmak için <a href="/login">giriş yapmalısınız</a>.</em>
 </p>
-{% endif %} {% endblock %}
--e 
+{% endif %} {% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/thread_new.html ===
-{% extends "base.html" %} {% block title %}New Thread in {{ board.name }} -
+{% extends "base.html" %} {% block title %}{{ board.name }} - Yeni Konu -
 sakinfan.com{% endblock %} {% block content %}
-<h2>Create New Thread in {{ board.name }}</h2>
+<h2>{{ board.name }} - Yeni Konu Oluştur</h2>
 <form method="POST" action="/board/{{ board.id }}/new">
   <input
     type="hidden"
@@ -397,11 +465,11 @@ sakinfan.com{% endblock %} {% block content %}
     value="{{ request.scope['csrftoken']() }}"
   />
   <p>
-    <label for="title">Title:</label><br />
+    <label for="title">Başlık:</label><br />
     <input type="text" id="title" name="title" style="width: 100%" required />
   </p>
   <p>
-    <label for="body">Post Body:</label><br />
+    <label for="body">Mesaj:</label><br />
     <textarea
       id="body"
       name="body"
@@ -411,11 +479,10 @@ sakinfan.com{% endblock %} {% block content %}
     ></textarea>
   </p>
   <p>
-    <button type="submit">Post Thread</button>
+    <button type="submit">Konuyu Aç</button>
   </p>
 </form>
-{% endblock %}
--e 
+{% endblock %}-e 
 
 === /home/jeff/projects/sakinfan.com/app/templates/base.html ===
 <!doctype html>
@@ -428,10 +495,14 @@ sakinfan.com{% endblock %} {% block content %}
   </head>
   <body>
     <header>
-      <h1>sakinfan.com</h1>
+      <div class="banner">
+        <h1>www.sakinfan.com</h1>
+        <div class="logo">sakin</div>
+      </div>
       <nav>
-        <a href="/">Ana Sayfa</a> | {% if user %} Giriş yapıldı:
-        <strong>{{ user.username }}</strong> |
+        | <a href="/">ANA SAYFA</a> | 
+        {% if user %}
+        <span>Merhaba, <strong>{{ user.username }}</strong></span> |
         <form action="/logout" method="POST" style="display: inline">
           <input
             type="hidden"
@@ -443,26 +514,25 @@ sakinfan.com{% endblock %} {% block content %}
             style="
               background: none;
               border: none;
-              padding: 0;
-              color: blue;
-              text-decoration: underline;
+              padding: 0 10px;
+              color: #3b3632;
               cursor: pointer;
+              font-family: inherit;
+              font-size: inherit;
             "
           >
-            Çıkış Yap
+            ÇIKIŞ YAP
           </button>
-        </form>
+        </form> |
         {% else %}
-        <a href="/login">Giriş Yap</a> | <a href="/register">Kayıt Ol</a>
+        <a href="/login">GİRİŞ YAP</a> | <a href="/register">KAYIT</a> |
         {% endif %}
       </nav>
-      <hr />
     </header>
 
     <main>{% block content %}{% endblock %}</main>
 
     <footer>
-      <hr />
       <p>&copy; 2026 sakinfan.com</p>
     </footer>
   </body>
@@ -475,22 +545,22 @@ endblock %} {% block content %}
 <p>{{ board.description }}</p>
 
 {% if user %}
-<p><a href="/board/{{ board.id }}/new">[ Create New Thread ]</a></p>
+<p><a href="/board/{{ board.id }}/new">[ Yeni Konu Aç ]</a></p>
 {% endif %}
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
 
 <table border="1" width="100%" cellpadding="5">
   <thead>
     <tr>
-      <th align="left">Thread</th>
-      <th>Created At</th>
+      <th align="left">Konu</th>
+      <th>Oluşturulma Tarihi</th>
     </tr>
   </thead>
   <tbody>
@@ -498,8 +568,8 @@ endblock %} {% block content %}
     <tr>
       <td>
         <strong>
-          {% if thread.is_pinned %}[PINNED] {% endif %} {% if thread.is_locked
-          %}[LOCKED] {% endif %}
+          {% if thread.is_pinned %}[SABİTLENDİ] {% endif %} {% if thread.is_locked
+          %}[KİLİTLİ] {% endif %}
           <a href="/thread/{{ thread.id }}">{{ thread.title }}</a>
         </strong>
       </td>
@@ -507,19 +577,18 @@ endblock %} {% block content %}
     </tr>
     {% else %}
     <tr>
-      <td colspan="2">No threads yet.</td>
+      <td colspan="2">Henüz konu bulunmuyor.</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
 <div class="pagination">
-  Page {{ current_page }} of {{ total_pages }} | {% if current_page > 1 %}
-  <a href="?page={{ current_page - 1 }}">&laquo; Previous</a>
+  Sayfa {{ current_page }} / {{ total_pages }} | {% if current_page > 1 %}
+  <a href="?page={{ current_page - 1 }}">&laquo; Önceki</a>
   {% endif %} {% if current_page < total_pages %}
-  <a href="?page={{ current_page + 1 }}">Next &raquo;</a>
+  <a href="?page={{ current_page + 1 }}">Sonraki &raquo;</a>
   {% endif %}
 </div>
-{% endblock %}
--e 
+{% endblock %}-e 
 

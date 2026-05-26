@@ -1,61 +1,166 @@
 body {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  background-color: #e5e5e5;
-  color: #000000;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  background-color: #d1c5b0;
+  background-image: url('/static/background.jpg');
+  background-attachment: fixed;
+  background-position: center top;
+  background-size: cover;
+  color: #3b3632;
   margin: 0;
-  padding: 20px;
+  padding: 30px 10px;
 }
-main {
+
+.main-wrapper {
   max-width: 900px;
   margin: 0 auto;
   background-color: #ffffff;
-  border: 1px solid #000000;
-  padding: 20px;
+  border: 1px solid #a39c8d;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
 }
-header,
-footer {
-  max-width: 900px;
-  margin: 0 auto;
+
+header {
+  background-color: #ffffff;
+}
+
+.top-banner {
+  width: 100%;
+  display: block;
+  border-bottom: 2px solid #a11920;
+}
+
+nav {
   text-align: center;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 10px 20px;
+  border-bottom: 1px solid #a39c8d;
+}
+
+nav a, nav button {
+  color: #3b3632;
+  padding: 0 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+nav a:hover, nav button:hover {
+  color: #a11920;
+}
+nav span {
+  font-weight: normal;
+  color: #666;
+  padding: 0 10px;
+}
+
+main {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+footer {
+  border-top: 1px solid #a39c8d;
+  text-align: center;
+  font-size: 0.85em;
+  color: #666;
+  padding: 10px 20px;
+}
+
+/* Board Grouping Styles */
+.group-title {
+  background-color: #e8e3d8;
+  color: #3b3632;
+  font-weight: bold;
+  padding: 8px 10px;
+  border: 1px solid #dcdcdc;
+  border-bottom: none;
+  font-size: 1.1em;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  background-color: #fefefe;
+  margin-bottom: 25px;
+  background-color: #fcfcfc;
+  table-layout: fixed;
 }
 th {
-  background-color: #003366;
-  color: #ffffff;
+  background-color: #3b3632;
+  color: #d1c5b0;
   font-weight: bold;
-  padding: 5px;
-  border: 1px solid #000000;
+  padding: 8px;
+  border: 1px solid #a39c8d;
+  font-size: 0.85em;
 }
 td {
-  padding: 8px;
-  border: 1px solid #000000;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  font-size: 0.9em;
+  word-wrap: break-word;
 }
+td.stats-col {
+  width: 20%;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
 .post-author {
-  background-color: #f0f0f0;
+  background-color: #f4f4f4;
   width: 150px;
   vertical-align: top;
+  border-right: 1px solid #dcdcdc;
 }
 .post-body {
   vertical-align: top;
-  font-family: "Courier New", Courier, monospace;
 }
 .pagination {
   margin: 10px 0;
   font-size: 0.9em;
 }
 a {
-  color: #003366;
+  color: #3b3632;
   text-decoration: none;
 }
 a:hover {
+  color: #a11920;
   text-decoration: underline;
 }
 .error {
-  color: #ff0000;
+  color: #a11920;
   font-weight: bold;
+}
+button {
+  background-color: #3b3632;
+  color: #d1c5b0;
+  border: 1px solid #1a1816;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover {
+  background-color: #a11920;
+  color: #ffffff;
+}
+
+/* Concert Box */
+.concert-box {
+  background-color: #f9f4ed;
+  border: 1px solid #a39c8d;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: center;
+}
+.concert-box h3 {
+  margin-top: 0;
+  color: #a11920;
+}
+.concert-box a.ticket-btn {
+  display: inline-block;
+  background-color: #a11920;
+  color: #fff;
+  padding: 8px 15px;
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+.concert-box a.ticket-btn:hover {
+  background-color: #3b3632;
+  text-decoration: none;
 }

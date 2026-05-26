@@ -7,43 +7,45 @@
     <title>{% block title %}sakinfan.com - Sakin Grubu Hayran Forumu{% endblock %}</title>
   </head>
   <body>
-    <header>
-      <h1>sakinfan.com</h1>
-      <nav>
-        <a href="/">Ana Sayfa</a> | {% if user %} Giriş yapıldı:
-        <strong>{{ user.username }}</strong> |
-        <form action="/logout" method="POST" style="display: inline">
-          <input
-            type="hidden"
-            name="csrftoken"
-            value="{{ request.scope['csrftoken']() }}"
-          />
-          <button
-            type="submit"
-            style="
-              background: none;
-              border: none;
-              padding: 0;
-              color: blue;
-              text-decoration: underline;
-              cursor: pointer;
-            "
-          >
-            Çıkış Yap
-          </button>
-        </form>
-        {% else %}
-        <a href="/login">Giriş Yap</a> | <a href="/register">Kayıt Ol</a>
-        {% endif %}
-      </nav>
-      <hr />
-    </header>
+    <div class="main-wrapper">
+      <header>
+        <img src="/static/banner.png" alt="sakinfan.com" class="top-banner" />
+        <nav>
+          | <a href="/">ANA SAYFA</a> | 
+          {% if user %}
+          <span>Merhaba, <strong>{{ user.username }}</strong></span> |
+          <form action="/logout" method="POST" style="display: inline">
+            <input
+              type="hidden"
+              name="csrftoken"
+              value="{{ request.scope['csrftoken']() }}"
+            />
+            <button
+              type="submit"
+              style="
+                background: none;
+                border: none;
+                padding: 0 10px;
+                color: #3b3632;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: inherit;
+              "
+            >
+              ÇIKIŞ YAP
+            </button>
+          </form> |
+          {% else %}
+          <a href="/login">GİRİŞ YAP</a> | <a href="/register">KAYIT</a> |
+          {% endif %}
+        </nav>
+      </header>
 
-    <main>{% block content %}{% endblock %}</main>
+      <main>{% block content %}{% endblock %}</main>
 
-    <footer>
-      <hr />
-      <p>&copy; 2026 sakinfan.com</p>
-    </footer>
+      <footer>
+        <p>&copy; 2026 sakinfan.com</p>
+      </footer>
+    </div>
   </body>
 </html>

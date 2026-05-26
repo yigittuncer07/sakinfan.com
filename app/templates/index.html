@@ -1,38 +1,134 @@
 {% extends "base.html" %} {% block content %}
 
-<section style="margin-bottom: 30px; padding: 15px; background-color: #f9f9f9; border: 1px solid #ddd;">
-  <h2>Sakin Hakkında</h2>
-  <p>
-    <strong>Sakin</strong>, 1999 yılında Ankara'da kurulan Türk indie rock/alternatif rock grubudur. 
-    Onur Özdemir (vokal, gitar), Özdemir Dereli (gitar), Koray Candemir (bas gitar) ve Soner Büyüknisan (bateri) kadrosuyla bilinirler. 
-    2008 yılında yayımladıkları <em>"Hayat"</em> albümü ile büyük beğeni toplayan grup, 2011 yılında dağılmıştır. 
-    Bu platform, grubun mirasını yaşatmak ve hayranlarını bir araya getirmek için kurulmuştur.
-  </p>
-</section>
-
-<h2>Forumlar</h2>
-<table border="1" width="100%" cellpadding="5">
+<div class="group-title">sakinfan.com</div>
+<table>
   <thead>
     <tr>
       <th align="left">Kategori</th>
-      <th>İstatistikler</th>
+      <th class="stats-col">İstatistikler</th>
     </tr>
   </thead>
   <tbody>
     {% for board in boards %}
-    <tr>
-      <td>
-        <strong><a href="/board/{{ board.id }}">{{ board.name }}</a></strong
-        ><br />
-        <small>{{ board.description }}</small>
-      </td>
-      <td align="center">{{ board.thread_count }} Konu<br>{{ board.post_count }} Mesaj</td>    
-    </tr>
-    {% else %}
-    <tr>
-      <td colspan="2">Henüz forum bulunmuyor.</td>
-    </tr>
+      {% if board.name in ['Site Hakkında'] %}
+      <tr>
+        <td>
+          <strong><a href="/board/{{ board.id }}" style="font-size: 1.1em;">{{ board.name }}</a></strong><br />
+          <span style="font-size: 0.85em; color: #555;">{{ board.description }}</span>
+        </td>
+        <td class="stats-col">
+          <span style="font-size: 0.85em;">
+            <strong>{{ board.thread_count }}</strong> Konu<br>
+            <strong>{{ board.post_count }}</strong> Mesaj
+          </span>
+        </td>    
+      </tr>
+      {% endif %}
     {% endfor %}
   </tbody>
 </table>
+
+<div class="group-title">Sakin</div>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Kategori</th>
+      <th class="stats-col">İstatistikler</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for board in boards %}
+      {% if board.name in ['Sakin', 'HAYAT - 2008'] %}
+      <tr>
+        <td>
+          <strong><a href="/board/{{ board.id }}" style="font-size: 1.1em;">{{ board.name }}</a></strong><br />
+          <span style="font-size: 0.85em; color: #555;">{{ board.description }}</span>
+        </td>
+        <td class="stats-col">
+          <span style="font-size: 0.85em;">
+            <strong>{{ board.thread_count }}</strong> Konu<br>
+            <strong>{{ board.post_count }}</strong> Mesaj
+          </span>
+        </td>    
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="group-title">Sakin Wiki (Ansiklopedi)</div>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Kategori</th>
+      <th class="stats-col">İstatistikler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong><a href="#" style="font-size: 1.1em;">Grup Tarihçesi</a></strong><br />
+        <span style="font-size: 0.85em; color: #555;">Sakinin kuruluşu, dağılışı ve müzikal yolculuğu.</span>
+      </td>
+      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
+    </tr>
+    <tr>
+      <td>
+        <strong><a href="#" style="font-size: 1.1em;">Albüm Ansiklopedisi</a></strong><br />
+        <span style="font-size: 0.85em; color: #555;">Hayat albümü ve yayınlanmamış kayıtlar (Bizim Büyük Çaresizliğimiz, vb.)</span>
+      </td>
+      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
+    </tr>
+    <tr>
+      <td>
+        <strong><a href="#" style="font-size: 1.1em;">Grup Üyeleri</a></strong><br />
+        <span style="font-size: 0.85em; color: #555;">Onur Özdemir, Özdemir Dereli, Koray Candemir, Soner Büyüknisan.</span>
+      </td>
+      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
+    </tr>
+    <tr>
+      <td>
+        <strong><a href="#" style="font-size: 1.1em;">Sakin Tribute</a></strong><br />
+        <span style="font-size: 0.85em; color: #555;">Şu an aktif olarak sahne alan Sakin Tribute grubu hakkında.</span>
+      </td>
+      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
+    </tr>
+  </tbody>
+</table>
+
+<div class="group-title">Genel</div>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Kategori</th>
+      <th class="stats-col">İstatistikler</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for board in boards %}
+      {% if board.name in ['Müzik', 'Kültür - Sanat', 'Genel'] %}
+      <tr>
+        <td>
+          <strong><a href="/board/{{ board.id }}" style="font-size: 1.1em;">{{ board.name }}</a></strong><br />
+          <span style="font-size: 0.85em; color: #555;">{{ board.description }}</span>
+        </td>
+        <td class="stats-col">
+          <span style="font-size: 0.85em;">
+            <strong>{{ board.thread_count }}</strong> Konu<br>
+            <strong>{{ board.post_count }}</strong> Mesaj
+          </span>
+        </td>    
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="concert-box">
+  <h3>🎵 Yaklaşan Konser: Sakin Tribute 🎵</h3>
+  <p><strong>Tarih:</strong> 28 Haziran 2026, Cumartesi | <strong>Mekan:</strong> Dorock XL, Kadıköy</p>
+  <p style="font-size: 0.9em; color: #555;">Hayat albümünden unutulmaz eserler ve çalınmamış şarkılarla dolu bir geceye hazır olun.</p>
+  <a href="#" class="ticket-btn">Biletleri İncele</a>
+</div>
+
 {% endblock %}
