@@ -12,3 +12,4 @@ markdown
 bleach
 httpx
 python-dotenv
+beautifulsoup4

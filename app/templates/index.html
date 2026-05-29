@@ -61,37 +61,32 @@
   <thead>
     <tr>
       <th align="left">Kategori</th>
-      <th class="stats-col">İstatistikler</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <strong><a href="#" style="font-size: 1.1em;">Grup Tarihçesi</a></strong><br />
+        <strong><a href="/wiki/history.html" style="font-size: 1.1em;">Grup Tarihçesi</a></strong><br />
         <span style="font-size: 0.85em; color: #555;">Sakinin kuruluşu, dağılışı ve müzikal yolculuğu.</span>
       </td>
-      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
     </tr>
     <tr>
       <td>
-        <strong><a href="#" style="font-size: 1.1em;">Albüm Ansiklopedisi</a></strong><br />
+        <strong><a href="/wiki/album.html" style="font-size: 1.1em;">Albüm Ansiklopedisi</a></strong><br />
         <span style="font-size: 0.85em; color: #555;">Hayat albümü ve yayınlanmamış kayıtlar (Bizim Büyük Çaresizliğimiz, vb.)</span>
       </td>
-      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
     </tr>
     <tr>
       <td>
-        <strong><a href="#" style="font-size: 1.1em;">Grup Üyeleri</a></strong><br />
+        <strong><a href="/wiki/uyeler.html" style="font-size: 1.1em;">Grup Üyeleri</a></strong><br />
         <span style="font-size: 0.85em; color: #555;">Onur Özdemir, Özdemir Dereli, Koray Candemir, Soner Büyüknisan.</span>
       </td>
-      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
     </tr>
     <tr>
       <td>
-        <strong><a href="#" style="font-size: 1.1em;">Sakin Tribute</a></strong><br />
+        <strong><a href="/wiki/tribute.html" style="font-size: 1.1em;">Sakin Tribute</a></strong><br />
         <span style="font-size: 0.85em; color: #555;">Şu an aktif olarak sahne alan Sakin Tribute grubu hakkında.</span>
       </td>
-      <td class="stats-col"><span style="font-size: 0.85em;"><strong>-</strong> Konu</span></td>    
     </tr>
   </tbody>
 </table>
@@ -124,11 +119,20 @@
   </tbody>
 </table>
 
-<div class="concert-box">
-  <h3>🎵 Yaklaşan Konser: Sakin Tribute 🎵</h3>
-  <p><strong>Tarih:</strong> 28 Haziran 2026, Cumartesi | <strong>Mekan:</strong> Dorock XL, Kadıköy</p>
-  <p style="font-size: 0.9em; color: #555;">Hayat albümünden unutulmaz eserler ve çalınmamış şarkılarla dolu bir geceye hazır olun.</p>
-  <a href="#" class="ticket-btn">Biletleri İncele</a>
-</div>
+{% if concerts %}
+  {% for concert in concerts %}
+  <div class="concert-box">
+    <h3>🎵 Yaklaşan Konser: {{ concert.title }} 🎵</h3>
+    <p><strong>Tarih:</strong> {{ concert.date }} | <strong>Mekan:</strong> {{ concert.venue }}</p>
+    <p style="font-size: 0.9em; color: #555;">{{ concert.price }}</p>
+    <a href="{{ concert.link }}" target="_blank" class="ticket-btn">Biletleri İncele</a>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="concert-box">
+    <h3>🎵 Yaklaşan Konser 🎵</h3>
+    <p>Şu an için planlanmış bir konser bulunmuyor.</p>
+  </div>
+{% endif %}
 
 {% endblock %}

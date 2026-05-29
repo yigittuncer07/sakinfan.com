@@ -14,6 +14,7 @@ from app.config import settings
 from app.routers import auth, boards, threads, posts
 from app.dependencies import get_current_user
 from app.services.seeder import initialize_database
+from app.services.concerts import get_upcoming_concerts
 from fastapi.staticfiles import StaticFiles
 
 from fastapi import HTTPException
@@ -74,7 +75,6 @@ async def index(
     
     result = await db.execute(query)
     
-    # Map results to a list of dicts for the template
     boards_data = []
     for board, t_count, p_count in result.all():
         boards_data.append({
@@ -85,10 +85,32 @@ async def index(
             "post_count": p_count
         })
 
+    # Fetch the concerts
+    concerts = await get_upcoming_concerts()
+
     return templates.TemplateResponse(
         request=request,
         name="index.html",
-        context={"boards": boards_data, "user": user},
+        context={"boards": boards_data, "user": user, "concerts": concerts},
+    )
+
+
+@app.get("/wiki/{page_name}.html")
+async def wiki_page(
+    request: Request,
+    page_name: str,
+    db: AsyncSession = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    template_name = f"wiki/{page_name}.html"
+    
+    if not (TEMPLATES_DIR / template_name).exists():
+        raise HTTPException(status_code=404, detail="Wiki page not found")
+        
+    return templates.TemplateResponse(
+        request=request, 
+        name=template_name, 
+        context={"user": user}
     )
 
 @app.exception_handler(404)
