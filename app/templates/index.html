@@ -122,7 +122,7 @@
 {% if concerts %}
   {% for concert in concerts %}
   <div class="concert-box">
-    <h3>🎵 Yaklaşan Konser: {{ concert.title }} 🎵</h3>
+    <h3>Yaklaşan Konser: {{ concert.title }}</h3>
     <p><strong>Tarih:</strong> {{ concert.date }} | <strong>Mekan:</strong> {{ concert.venue }}</p>
     <p style="font-size: 0.9em; color: #555;">{{ concert.price }}</p>
     <a href="{{ concert.link }}" target="_blank" class="ticket-btn">Biletleri İncele</a>
@@ -130,7 +130,7 @@
   {% endfor %}
 {% else %}
   <div class="concert-box">
-    <h3>🎵 Yaklaşan Konser 🎵</h3>
+    <h3>Yaklaşan Konser</h3>
     <p>Şu an için planlanmış bir konser bulunmuyor.</p>
   </div>
 {% endif %}
