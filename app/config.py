@@ -1,6 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 class Settings(BaseSettings):
     DATABASE_URL: str
     SECRET_KEY: str
@@ -9,11 +8,10 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     # Initial Admin Settings
-    ADMIN_USERNAME: str = "admin"
-    ADMIN_EMAIL: str = "admin@sakinfan.com"
-    ADMIN_PASSWORD: str = "changeme"
+    ADMIN_USERNAME: str
+    ADMIN_EMAIL: str
+    ADMIN_PASSWORD: str
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-
-settings = Settings()
+settings = Settings() # type: ignore
