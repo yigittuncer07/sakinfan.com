@@ -120,14 +120,45 @@
 </table>
 
 {% if concerts %}
-  {% for concert in concerts %}
+  <!-- Display the first (most recent) concert -->
   <div class="concert-box">
-    <h3>Yaklaşan Konser: {{ concert.title }}</h3>
-    <p><strong>Tarih:</strong> {{ concert.date }} | <strong>Mekan:</strong> {{ concert.venue }}</p>
-    <p style="font-size: 0.9em; color: #555;">{{ concert.price }}</p>
-    <a href="{{ concert.link }}" target="_blank" class="ticket-btn">Biletleri İncele</a>
+    <h3>Yaklaşan Konser: {{ concerts[0].title }}</h3>
+    <p><strong>Tarih:</strong> {{ concerts[0].date }} | <strong>Mekan:</strong> {{ concerts[0].venue }}</p>
+    <p style="font-size: 0.9em; color: #555;">{{ concerts[0].price }}</p>
+    <a href="{{ concerts[0].link }}" target="_blank" class="ticket-btn">Biletleri İncele</a>
   </div>
-  {% endfor %}
+
+  <!-- If there are more concerts, put them in a hidden div with a toggle button -->
+  {% if concerts|length > 1 %}
+    <div style="text-align: center; margin-bottom: 20px;">
+      <button id="toggle-concerts-btn" onclick="toggleConcerts()" style="padding: 8px 16px; cursor: pointer;">Tüm Konserleri Göster</button>
+    </div>
+    
+    <div id="hidden-concerts" style="display: none;">
+      {% for concert in concerts[1:] %}
+      <div class="concert-box">
+        <h3>Yaklaşan Konser: {{ concert.title }}</h3>
+        <p><strong>Tarih:</strong> {{ concert.date }} | <strong>Mekan:</strong> {{ concert.venue }}</p>
+        <p style="font-size: 0.9em; color: #555;">{{ concert.price }}</p>
+        <a href="{{ concert.link }}" target="_blank" class="ticket-btn">Biletleri İncele</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      function toggleConcerts() {
+        var hiddenDiv = document.getElementById('hidden-concerts');
+        var btn = document.getElementById('toggle-concerts-btn');
+        if (hiddenDiv.style.display === 'none') {
+          hiddenDiv.style.display = 'block';
+          btn.textContent = 'Konserleri Gizle';
+        } else {
+          hiddenDiv.style.display = 'none';
+          btn.textContent = 'Tüm Konserleri Göster';
+        }
+      }
+    </script>
+  {% endif %}
 {% else %}
   <div class="concert-box">
     <h3>Yaklaşan Konser</h3>
