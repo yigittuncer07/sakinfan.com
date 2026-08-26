@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     {% for board in boards %}
-      {% if board.name in ['Site Hakkında'] %}
+      {% if board.name in ['Site Hakkında', 'Sohbet'] %}
       <tr>
         <td>
           <strong><a href="/board/{{ board.id }}" style="font-size: 1.1em;">{{ board.name }}</a></strong><br />
