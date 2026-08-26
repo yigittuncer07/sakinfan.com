@@ -1,15 +1,13 @@
-{% extends "base.html" %} {% block title %}Kayıt Ol - sakinfan.com{% endblock %}
+{% extends "base.html" %}
+{% block title %}Kayıt Ol - sakinfan.com{% endblock %}
 {% block content %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <h2>Kayıt Ol</h2>
 {% if error %}
 <p style="color: red">{{ error }}</p>
 {% endif %}
 <form method="POST" action="/register">
-  <input
-    type="hidden"
-    name="csrftoken"
-    value="{{ request.scope['csrftoken']() }}"
-  />
+  <input type="hidden" name="csrftoken" value="{{ request.scope['csrftoken']() }}" />
   <p>
     <label for="username">Kullanıcı Adı:</label><br />
     <input type="text" id="username" name="username" required />
@@ -22,6 +20,7 @@
     <label for="password">Şifre:</label><br />
     <input type="password" id="password" name="password" required />
   </p>
+  <div class="cf-turnstile" data-sitekey="{{ site_key }}" style="margin-bottom: 15px;"></div>
   <p>
     <button type="submit">Kayıt Ol</button>
   </p>

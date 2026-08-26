@@ -7,10 +7,14 @@ class Settings(BaseSettings):
     SESSION_TTL_SECONDS: int = 604800
     DEBUG: bool = False
 
-    # Initial Admin Settings
+    # Admin Settings
     ADMIN_USERNAME: str
     ADMIN_EMAIL: str
     ADMIN_PASSWORD: str
+
+    # CAPTCHA Settings
+    TURNSTILE_SITE_KEY: str
+    TURNSTILE_SECRET_KEY: str
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
