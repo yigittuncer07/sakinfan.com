@@ -116,7 +116,7 @@ async def main():
         create_post_task(sem, random.choice(user_clients), random.choice(thread_ids))
         for _ in range(POST_COUNT)
     ]
-    # Process in chunks to give feedback and not run out of memory entirely
+    # process in chunks to give feedback and not run out of memory entirely
     chunk_size = 1000
     for i in range(0, len(tasks), chunk_size):
         await asyncio.gather(*tasks[i:i+chunk_size])
