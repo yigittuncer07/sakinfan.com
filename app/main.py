@@ -13,7 +13,6 @@ from app.models.board import Board
 from app.config import settings
 from app.routers import auth, boards, threads, posts
 from app.dependencies import get_current_user
-from app.services.seeder import initialize_database
 from app.services.concerts import get_upcoming_concerts
 from fastapi.staticfiles import StaticFiles
 
@@ -23,14 +22,7 @@ from app.models.post import Post
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-    # Run seeder
-    async with AsyncSessionLocal() as db:
-        await initialize_database(db)
-
+    
     yield
 
 

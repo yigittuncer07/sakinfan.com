@@ -13,3 +13,4 @@ bleach
 httpx
 python-dotenv
 beautifulsoup4
+alembic
