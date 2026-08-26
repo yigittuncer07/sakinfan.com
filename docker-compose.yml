@@ -41,7 +41,7 @@ services:
       - web
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./app/static:/app/app/static:ro # Allows NGINX to read the static files
+      - ./app/static:/app/app/static:ro # allows NGINX to read the static files
 
 volumes:
   postgres_data:
