@@ -1,0 +1,1 @@
+docker compose exec -T postgre pg_dump -U postgres -d forum -c > forum_backup_$(date +%F).sql
