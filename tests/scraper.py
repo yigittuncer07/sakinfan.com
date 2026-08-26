@@ -2,12 +2,12 @@ import httpx
 from bs4 import BeautifulSoup
 
 def fetch_concerts():
-    url = "https://biletinial.com/tr-tr/profile/onur-ozdemir"
+    url = "https://biletinial.com/tr-tr/artist/onur-ozdemir"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
-    response = httpx.get(url, headers=headers)
+    response = httpx.get(url, headers=headers, follow_redirects=True)
     if response.status_code != 200:
         return {"error": f"Failed to fetch. Status: {response.status_code}"}
 
@@ -34,5 +34,8 @@ def fetch_concerts():
 
 if __name__ == "__main__":
     results = fetch_concerts()
-    for concert in results:
-        print(concert)
+    if isinstance(results, dict) and "error" in results:
+        print(results["error"])
+    else:
+        for concert in results:
+            print(concert)
